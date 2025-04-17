@@ -43,18 +43,26 @@ Step-by-Step:
 2. Use the `filter()` method to apply the callback to the array.
 3. Return the filtered result.
 */
+function filterProducts(arr, callback) {
+  return arr.filter(callback);
+}
+
+let available = a => a.inStock;
 
 
-/*
-🔹 Task 2: Transform Product Names
+// /*
+// 🔹 Task 2: Transform Product Names
 
-Use `map()` to create a new array of product names in UPPERCASE.
+// Use `map()` to create a new array of product names in UPPERCASE.
 
-Step-by-Step:
-1. Use `map()` on the products array.
-2. Extract and transform the `name` property to uppercase.
-3. Store the result in a new variable.
-*/
+// Step-by-Step:
+// 1. Use `map()` on the products array.
+// 2. Extract and transform the `name` property to uppercase.
+// 3. Store the result in a new variable.
+// */
+
+let productsUpperCase = products.map(a => a.name.toUpperCase());
+
 
 
 /*
@@ -71,10 +79,18 @@ Step-by-Step:
 */
 
 
+function applyDiscount(discountPercent) {
+  return function (product) {return {...product, price: (product.price - (product.price * discountPercent))};
+  }
+}
+
+let discountedProducts = products.map(applyDiscount(0.1));
+
 /*
 🔹 Task 4: Calculate Total Inventory Value
 
 Use `reduce()` to calculate the total value of products that are currently in stock.
+
 
 Step-by-Step:
 1. Use the `reduce()` method on the products array.
@@ -82,12 +98,14 @@ Step-by-Step:
 3. Store the total in a new variable.
 */
 
+let inventoryValue = discountedProducts.filter(a => a.inStock).reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
+
 
 // ============================================
 // 🧪 Console Test Your Work
 // ============================================
 
-// console.log("Filtered products:", ...);
-// console.log("Uppercased names:", ...);
-// console.log("Discounted products:", ...);
-// console.log("Total value in stock:", ...);
+console.log("Filtered products:", filterProducts(products, available));
+console.log("Uppercased names:", productsUpperCase);
+console.log("Discounted products:", products.map(applyDiscount(0.1)));
+console.log("Total value in stock:", inventoryValue);
